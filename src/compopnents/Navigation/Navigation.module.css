@@ -1,0 +1,32 @@
+.header {
+  background-color: var(--inputs);
+  padding: 0 64px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav ul {
+  display: flex;
+  gap: 32px;
+  margin: 0 auto;
+}
+
+.nav a {
+  padding: 24px 0;
+}
+
+.link {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--main);
+}
+
+.accent {
+  color: var(--button-hover);
+}

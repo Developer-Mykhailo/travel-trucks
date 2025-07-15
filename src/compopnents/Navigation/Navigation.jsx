@@ -1,22 +1,37 @@
-// import React from 'react'
+import clsx from "clsx";
+import s from "./Navigation.module.css";
+import logo from "../../assets/logo.svg";
 
 import { Link, NavLink } from "react-router-dom";
 
 const Navigation = () => {
   return (
     <>
-      <nav>
-        <Link to="/">Logo</Link>
-
-        <ul>
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/catalog">Catalog</NavLink>
-          </li>
-        </ul>
-      </nav>
+      <header className={s.header}>
+        <nav className={s.nav}>
+          <Link to="/">
+            <img src={logo} alt="Travel Trucks logo" />
+          </Link>
+          <ul>
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) => clsx(s.link, isActive && s.accent)}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/catalog"
+                className={({ isActive }) => clsx(s.link, isActive && s.accent)}
+              >
+                Catalog
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
     </>
   );
 };

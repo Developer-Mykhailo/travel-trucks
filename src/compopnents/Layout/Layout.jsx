@@ -3,14 +3,13 @@ import Navigation from "../Navigation/Navigation";
 
 const Layout = () => {
   return (
-    <div>
-      <header>
-        <Navigation />
-      </header>
+    <>
+      <Navigation />
+
       <main>
         <Outlet />
       </main>
-    </div>
+    </>
   );
 };
 
