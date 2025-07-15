@@ -9,6 +9,12 @@
   padding-bottom: 260px;
 }
 
+@media screen and (min-resolution: 2x) {
+  .hero {
+    background-image: url(../../assets/images/hero-bg@2x.webp);
+  }
+}
+
 .content {
   max-width: 571px;
 }
