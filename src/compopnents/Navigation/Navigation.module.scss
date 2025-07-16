@@ -5,16 +5,16 @@
 .nav {
   display: flex;
   align-items: center;
-}
 
-.nav ul {
-  display: flex;
-  gap: 32px;
-  margin: 0 auto;
-}
+  & ul {
+    display: flex;
+    gap: 32px;
+    margin: 0 auto;
+  }
 
-.nav a {
-  padding: 24px 0;
+  & a {
+    padding: 24px 0;
+  }
 }
 
 .link {

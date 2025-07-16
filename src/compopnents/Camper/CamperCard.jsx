@@ -8,7 +8,7 @@ import FuelIcon from "../../assets/catalogSvg/fuel.svg?react";
 import KitchenIcon from "../../assets/catalogSvg/kitchen.svg?react";
 import AirIcon from "../../assets/catalogSvg/air_icon.svg?react";
 import clsx from "clsx";
-import s from "./CamperCard.module.css";
+import s from "./CamperCard.module.scss";
 
 const CamperCard = ({ camper }) => {
   const {

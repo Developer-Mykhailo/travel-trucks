@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Container from "../../compopnents/Container/Container";
-import s from "./HomePage.module.css";
+import s from "./HomePage.module.scss";
 
 const HomePage = () => {
   return (

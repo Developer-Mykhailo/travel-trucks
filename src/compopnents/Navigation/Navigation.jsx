@@ -1,9 +1,8 @@
 import clsx from "clsx";
-import s from "./Navigation.module.css";
-import logo from "../../assets/logo.svg";
-
 import { Link, NavLink } from "react-router-dom";
+import logo from "../../assets/logo.svg";
 import Container from "../Container/Container";
+import s from "./Navigation.module.scss";
 
 const Navigation = () => {
   return (
