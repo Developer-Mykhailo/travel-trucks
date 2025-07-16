@@ -1,0 +1,188 @@
+.camper_wrap {
+  display: flex;
+  gap: 24px;
+
+  border: 1px solid var(--gray-light);
+  border-radius: 20px;
+  padding: 24px;
+  background: var(--white);
+}
+
+.image_box {
+  width: 292px;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.image_box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content_box {
+  width: 524px;
+  height: 320px;
+}
+
+.name_price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.card_title,
+.price {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  color: var(--main);
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.heart_icon {
+  width: 26px;
+  height: 24px;
+  fill: #101828;
+}
+
+/*  */
+.reviews_location {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.reviews {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-family: var(--font-family);
+  line-height: 150%;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--main);
+}
+
+.location {
+  font-family: var(--font-family);
+  line-height: 150%;
+  color: var(--main);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.descr {
+  max-width: 525px;
+  font-family: var(--font-family);
+  line-height: 150%;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.camper_equipment {
+  max-width: 400px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.camper_equipment span {
+  border-radius: 100px;
+  padding: 0 18px;
+  height: 48px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  background: var(--badges);
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--main);
+}
+
+.disabled {
+  color: #6c717b;
+  text-decoration: line-through;
+  text-decoration-color: #e44848;
+  text-decoration-thickness: 2px;
+  opacity: 0.7;
+}
+
+.link_show_more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  border-radius: 200px;
+  width: 166px;
+  height: 56px;
+  background-color: var(--button);
+  transition: background-color 250ms ease;
+}
+
+.link_show_more:hover,
+.link_show_more:focus {
+  background-color: var(--button-hover);
+}
+
+/* tooltip */
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tooltipFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.9);
+  }
+}
+
+.title_tooltip,
+.descr_tooltip {
+  max-width: 450px;
+  border-radius: 20px !important;
+  background-color: #f2f4f7 !important;
+  color: var(--text) !important;
+  padding: 15px !important;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+  /* Animation */
+  animation: tooltipFadeIn 300ms ease-out forwards;
+}
+
+/* When the Tooltip disappears */
+.title_tooltip[aria-hidden="true"],
+.descr_tooltip[aria-hidden="true"] {
+  animation: tooltipFadeOut 300ms ease-out forwards;
+}

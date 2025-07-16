@@ -1,4 +1,4 @@
-@import "node_modules/modern-normalize/modern-normalize.css";
+@import "modern-normalize/modern-normalize.css";
 
 /* reset styles */
 
@@ -16,7 +16,6 @@ a {
 img {
   max-width: 100%;
   display: block;
-  height: auto;
 }
 
 ul,

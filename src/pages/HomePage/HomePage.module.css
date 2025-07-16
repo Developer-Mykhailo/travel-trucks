@@ -55,6 +55,7 @@
   transition: background-color 250ms ease;
 }
 
-.view_now:hover {
+.view_now:hover,
+.view_now:focus {
   background-color: var(--button-hover);
 }
