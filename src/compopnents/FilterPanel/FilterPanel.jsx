@@ -12,16 +12,34 @@ const FilterPanel = ({ handleFilter }) => {
   const formik = useFormik({
     initialValues: {
       location: "",
-      AC: null,
-      kitchen: null,
-      bathroom: null,
-      TV: null,
-      transmission: "",
       name: "",
+      automatic: false,
+      manual: false,
+      AC: false,
+      kitchen: false,
+      bathroom: false,
+      TV: false,
     },
     onSubmit: (values) => {
-      dispatch(setFilters(values)); // put the filter value in steat
-      handleFilter(values);
+      const filters = {};
+      if (values.location.trim()) filters.location = values.location;
+
+      if (values.automatic && values.manual) {
+        filters.transmission = null;
+      } else if (values.automatic) {
+        filters.transmission = "automatic";
+      } else if (values.manual) {
+        filters.transmission = "manual";
+      }
+
+      if (values.name.trim()) filters.name = values.name;
+      if (values.AC) filters.AC = true;
+      if (values.kitchen) filters.kitchen = true;
+      if (values.bathroom) filters.bathroom = true;
+      if (values.TV) filters.TV = true;
+
+      dispatch(setFilters(filters)); // put the filter value in steat
+      handleFilter(filters);
       //   formik.resetForm();
     },
   });
@@ -43,49 +61,48 @@ const FilterPanel = ({ handleFilter }) => {
           />
         </div>
 
-        {/* <label>
+        <p className={s.filters}>Filters</p>
+        <p className={s.equipment}>Vehicle equipment</p>
+
+        <div className={s.wrap_equipment}>
           <input
             type="checkbox"
-            name="airConditioner"
+            id="AC"
+            name="AC"
             checked={formik.values.AC}
             onChange={formik.handleChange}
           />
-          Кондиціонер
-        </label> */}
-        {/* 
-        <label>
+          <label htmlFor="AC">AC</label>
+
           <input
             type="checkbox"
+            id="kitchen"
             name="kitchen"
             checked={formik.values.kitchen}
             onChange={formik.handleChange}
           />
-          Кухня
-        </label> */}
+          <label htmlFor="kitchen">Kitchen</label>
 
-        {/* <label>
           <input
             type="checkbox"
-            name="automaticTransmission"
-            checked={formik.values.automaticTransmission}
+            id="automatic"
+            name="automatic"
+            checked={formik.values.automatic}
             onChange={formik.handleChange}
           />
-          Автоматична коробка передач
-        </label> */}
+          <label htmlFor="automatic">Automatic</label>
 
-        {/* <select
-          name="driveType"
-          value={formik.values.driveType}
-          onChange={formik.handleChange}
-        >
-          <option value="">Тип приводу</option>
-          <option value="4x4">4x4</option>
-          <option value="AWD">AWD</option>
-          <option value="FWD">FWD</option>
-          <option value="RWD">RWD</option>
-        </select> */}
+          <input
+            type="checkbox"
+            id="manual"
+            name="manual"
+            checked={formik.values.manual}
+            onChange={formik.handleChange}
+          />
+          <label htmlFor="manual">Manual</label>
+        </div>
 
-        <button type="submit">Шукати</button>
+        <button type="submit">Search</button>
       </form>
     </div>
   );
