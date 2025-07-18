@@ -1,7 +1,10 @@
 import { useFormik } from "formik";
-import s from "./FilterPanel.module.scss";
 import { useDispatch } from "react-redux";
 import { setFilters } from "../../redux/filtered/slice";
+
+import MapIcon from "../../assets/catalogSvg/map.svg?react";
+
+import s from "./FilterPanel.module.scss";
 
 const FilterPanel = ({ handleFilter }) => {
   const dispatch = useDispatch();
@@ -25,15 +28,20 @@ const FilterPanel = ({ handleFilter }) => {
 
   //JSX
   return (
-    <div className={s.temp}>
+    <div className={s.wrapper_form}>
       <form onSubmit={formik.handleSubmit}>
-        <input
-          type="text"
-          name="location"
-          placeholder="Введіть локацію"
-          value={formik.values.location}
-          onChange={formik.handleChange}
-        />
+        <div className={s.location}>
+          <label htmlFor="location">Location</label>
+          <MapIcon className={s.map_icon} />
+          <input
+            id="location"
+            type="text"
+            name="location"
+            placeholder="City"
+            value={formik.values.location}
+            onChange={formik.handleChange}
+          />
+        </div>
 
         {/* <label>
           <input

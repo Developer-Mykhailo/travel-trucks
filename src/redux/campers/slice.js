@@ -5,11 +5,19 @@ const initialState = {
   campers: [],
   isLoading: false,
   error: null,
+  total: 0,
 };
 
 const campersSlice = createSlice({
   name: "campers",
   initialState,
+
+  reducers: {
+    resetCampers(state) {
+      state.campers = [];
+      state.total = 0;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -20,11 +28,12 @@ const campersSlice = createSlice({
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.isLoading = false;
 
-        const newCampers = action.payload.filter(
+        const newCampers = action.payload.items.filter(
           (newCamper) =>
             !state.campers.some((existing) => existing.id === newCamper.id)
         );
         state.campers = [...state.campers, ...newCampers];
+        state.total = action.payload.total;
       })
       .addCase(fetchCampers.rejected, (state, action) => {
         state.isLoading = false;
@@ -33,4 +42,5 @@ const campersSlice = createSlice({
   },
 });
 
+export const { resetCampers } = campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

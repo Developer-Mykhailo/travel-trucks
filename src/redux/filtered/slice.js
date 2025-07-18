@@ -6,20 +6,25 @@ const initialState = {
   isLoading: false,
   error: null,
   filters: null,
+  total: 0,
 };
 
 const filteredSlice = createSlice({
   name: "filtered",
   initialState,
+
   reducers: {
     setFilters(state, action) {
       state.filteredCampers = []; // clean old values
       state.filters = action.payload;
     },
-    resetFilters(state) {
+
+    resetFiltered(state) {
       state.filters = null;
+      state.total = 0;
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchFilteredCampers.pending, (state) => {
@@ -29,7 +34,7 @@ const filteredSlice = createSlice({
       .addCase(fetchFilteredCampers.fulfilled, (state, action) => {
         state.isLoading = false;
 
-        const newFilteredCampers = action.payload.filter(
+        const newFilteredCampers = action.payload.items.filter(
           (newCamper) =>
             !state.filteredCampers.some(
               (existing) => existing.id === newCamper.id
@@ -40,6 +45,7 @@ const filteredSlice = createSlice({
           ...state.filteredCampers,
           ...newFilteredCampers,
         ];
+        state.total = action.payload.total;
       })
       .addCase(fetchFilteredCampers.rejected, (state, action) => {
         state.isLoading = false;
@@ -48,5 +54,5 @@ const filteredSlice = createSlice({
   },
 });
 
-export const { setFilters, resetFilters } = filteredSlice.actions;
+export const { setFilters, resetFiltered } = filteredSlice.actions;
 export const filteredReducer = filteredSlice.reducer;

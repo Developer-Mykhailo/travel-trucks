@@ -8,12 +8,12 @@ export const fetchFilteredCampers = createAsyncThunk(
       const res = await axios.get("/campers", {
         params: {
           page,
-          limit: 1,
+          limit: 4,
           ...filters,
         },
       });
 
-      return res.data.items;
+      return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

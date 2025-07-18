@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/campers/operations";
-import { selectCampers } from "../../redux/campers/selectors";
+import { selectCampers, selectTotal } from "../../redux/campers/selectors";
 import { fetchFilteredCampers } from "../../redux/filtered/operations";
 import {
   selectFilteredCampers,
+  selectFilteredTotal,
   selectFilters,
 } from "../../redux/filtered/selectors";
 import CamperCard from "../../compopnents/Camper/CamperCard";
@@ -15,8 +16,12 @@ import s from "./Catalog.module.scss";
 const Catalog = () => {
   const dispatch = useDispatch();
   const campers = useSelector(selectCampers);
+
   const filteredCampers = useSelector(selectFilteredCampers);
   const filters = useSelector(selectFilters);
+
+  const total = useSelector(selectTotal);
+  const filteredTotal = useSelector(selectFilteredTotal);
 
   const [page, setPage] = useState(1);
 
@@ -42,11 +47,6 @@ const Catalog = () => {
     setPage(1);
   };
 
-  //
-  // useEffect(() => {
-  //   console.log(filters);
-  // }, [filters]);
-
   //JSX
   return (
     <section className={s.catalog}>
@@ -65,14 +65,20 @@ const Catalog = () => {
           </ul>
         </div>
 
-        <button
-          className={s.btn_load_more}
-          type="button"
-          aria-label="button to load more"
-          onClick={handleLoadMore}
-        >
-          Load more
-        </button>
+        {(
+          filteredCampers.length > 0
+            ? filteredCampers.length < filteredTotal // check to hide the button
+            : campers.length < total
+        ) ? (
+          <button
+            className={s.btn_load_more}
+            type="button"
+            aria-label="button to load more"
+            onClick={handleLoadMore}
+          >
+            Load more
+          </button>
+        ) : null}
       </Container>
     </section>
   );

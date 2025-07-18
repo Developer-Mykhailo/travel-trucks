@@ -1,0 +1,43 @@
+// .wrapper_form {
+
+// }
+
+.location {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  position: relative;
+
+  & label {
+    margin-bottom: 8px;
+  }
+
+  & input {
+    position: relative;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 20px;
+    padding-left: 46px;
+    width: 360px;
+    height: 56px;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+
+    background-color: var(--inputs);
+  }
+
+  & .map_icon {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    fill: var(--gray);
+
+    width: 20px;
+    height: 20px;
+    z-index: 1;
+    pointer-events: none;
+    display: flex;
+  }
+}
