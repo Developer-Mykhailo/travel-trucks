@@ -1,68 +1,78 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/campers/operations";
 import { selectCampers } from "../../redux/campers/selectors";
+import { fetchFilteredCampers } from "../../redux/filtered/operations";
+import {
+  selectFilteredCampers,
+  selectFilters,
+} from "../../redux/filtered/selectors";
 import CamperCard from "../../compopnents/Camper/CamperCard";
 import Container from "../../compopnents/Container/Container";
+import FilterPanel from "../../compopnents/FilterPanel/FilterPanel";
 import s from "./Catalog.module.scss";
 
 const Catalog = () => {
-  const [visibleCount, setVisibleCount] = useState(4);
-
-  const campers = useSelector(selectCampers);
   const dispatch = useDispatch();
+  const campers = useSelector(selectCampers);
+  const filteredCampers = useSelector(selectFilteredCampers);
+  const filters = useSelector(selectFilters);
 
-  const itemRef = useRef(null);
+  const [page, setPage] = useState(1);
 
   // download campers
   useEffect(() => {
-    dispatch(fetchCampers());
-  }, [dispatch]);
-
-  // scroll after adding new campers
-  useEffect(() => {
-    if (!itemRef.current) return;
-
-    const itemHeight = itemRef.current.offsetHeight;
-
-    window.scrollBy({
-      top: itemHeight * 2,
-      behavior: "smooth",
-    });
-  }, [visibleCount]);
+    if (campers.length === 0) dispatch(fetchCampers(page));
+  }, [dispatch, campers.length, page]);
 
   //handlers
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 4);
+    const nextPage = page + 1;
+    if (!filters) {
+      setPage(nextPage);
+      dispatch(fetchCampers(nextPage));
+    } else {
+      setPage(nextPage);
+      dispatch(fetchFilteredCampers({ filters, page: nextPage }));
+    }
   };
+
+  const handleFilter = (filters) => {
+    dispatch(fetchFilteredCampers({ filters, page: 1 }));
+    setPage(1);
+  };
+
+  //
+  // useEffect(() => {
+  //   console.log(filters);
+  // }, [filters]);
 
   //JSX
   return (
     <section className={s.catalog}>
       <Container>
-        <ul className={s.camper_list}>
-          {campers.slice(0, visibleCount).map((camper, index) => (
-            <li
-              className={s.item}
-              key={camper.id}
-              ref={index === 0 ? itemRef : null}
-            >
-              <CamperCard camper={camper} />
-            </li>
-          ))}
-        </ul>
+        <div className={s.catalog_container}>
+          <FilterPanel handleFilter={handleFilter} />
 
-        {/* btn load more */}
-        {visibleCount < campers.length && (
-          <button
-            className={s.btn_load_more}
-            type="button"
-            aria-label="button to load more"
-            onClick={handleLoadMore}
-          >
-            Load more
-          </button>
-        )}
+          <ul className={s.camper_list}>
+            {(filteredCampers.length > 0 ? filteredCampers : campers).map(
+              (camper) => (
+                <li className={s.item} key={camper.id}>
+                  <CamperCard camper={camper} />
+                </li>
+              )
+            )}
+          </ul>
+        </div>
+
+        <button
+          className={s.btn_load_more}
+          type="button"
+          aria-label="button to load more"
+          onClick={handleLoadMore}
+        >
+          Load more
+        </button>
       </Container>
     </section>
   );

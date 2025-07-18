@@ -10,6 +10,7 @@ const initialState = {
 const campersSlice = createSlice({
   name: "campers",
   initialState,
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchCampers.pending, (state) => {
@@ -18,7 +19,12 @@ const campersSlice = createSlice({
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.campers = action.payload;
+
+        const newCampers = action.payload.filter(
+          (newCamper) =>
+            !state.campers.some((existing) => existing.id === newCamper.id)
+        );
+        state.campers = [...state.campers, ...newCampers];
       })
       .addCase(fetchCampers.rejected, (state, action) => {
         state.isLoading = false;
