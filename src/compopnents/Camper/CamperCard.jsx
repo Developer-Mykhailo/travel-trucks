@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import HeartIcon from "../../assets/catalogSvg/heart.svg?react";
 import StarIcon from "../../assets/catalogSvg/star.svg?react";
 import MapIcon from "../../assets/catalogSvg/map.svg?react";
-import TransmissionIcon from "../../assets/catalogSvg/transmission.svg?react";
+import TransmissionIcon from "../../assets/catalogSvg/automatic.svg?react";
 import FuelIcon from "../../assets/catalogSvg/fuel.svg?react";
 import KitchenIcon from "../../assets/catalogSvg/kitchen.svg?react";
 import AirIcon from "../../assets/catalogSvg/air_icon.svg?react";

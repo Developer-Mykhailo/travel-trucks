@@ -47,16 +47,25 @@
   margin-bottom: 32px;
 }
 
-.equipment {
+.equipment,
+.vehicle_type {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--main);
+
   margin-bottom: 24px;
 }
 
-.wrap_equipment {
+.wrap_equipment,
+.wrap_vehicle_type {
   position: relative;
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 32px;
+  padding-top: 24px;
+  border-top: 2px solid #dadde1;
 
   & input {
     position: absolute;
@@ -71,9 +80,15 @@
   & label {
     border: 1px solid var(--gray-light);
     border-radius: 12px;
-    padding: 16px 18px;
     width: 112px;
     height: 96px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 
     transition: border 250ms ease;
   }
@@ -82,5 +97,44 @@
   & label:hover {
     cursor: pointer;
     border: 1px solid var(--button);
+  }
+}
+
+//icons
+.air_icon,
+.kitchen_icon,
+.transmission_icon,
+.tv_icon,
+.bathroom_icon,
+.van_icon,
+.alcove_icon,
+.fully_icon {
+  width: 32px;
+  height: 32px;
+}
+
+.wrap_vehicle_type {
+  margin-bottom: 40px;
+}
+
+.search_with_filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  border-radius: 200px;
+  width: 166px;
+  height: 56px;
+  background-color: var(--button);
+  transition: background-color 250ms ease;
+
+  &:hover,
+  &:focus {
+    background-color: var(--button-hover);
   }
 }
