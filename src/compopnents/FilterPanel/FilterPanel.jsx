@@ -15,60 +15,82 @@ import Van_icon from "../../assets/catalogSvg/van.svg?react";
 
 import s from "./FilterPanel.module.scss";
 
+const initialValues = {
+  location: "",
+  name: "",
+  automatic: false,
+  manual: false,
+  AC: false,
+  kitchen: false,
+  bathroom: false,
+  TV: false,
+  vehicleType: "",
+};
+
 const FilterPanel = ({ handleFilter }) => {
   const dispatch = useDispatch();
 
   const formik = useFormik({
-    initialValues: {
-      location: "",
-      name: "",
-      automatic: false,
-      manual: false,
-      AC: false,
-      kitchen: false,
-      bathroom: false,
-      TV: false,
-      alcove: false,
-      fully: false,
-      van: false,
-    },
+    initialValues,
     onSubmit: (values) => {
       const filters = {};
 
-      if (values.location.trim()) filters.location = values.location;
+      // Location filter
+      if (values.location.trim()) {
+        filters.location = values.location.trim();
+      }
 
+      // Name filter
+      if (values.name.trim()) {
+        filters.name = values.name.trim();
+      }
+
+      // Transmission filter
       if (values.automatic && values.manual) {
-        filters.transmission = null;
+        // If both are selected, do not filter on transmission
+        filters.transmission = undefined;
       } else if (values.automatic) {
         filters.transmission = "automatic";
       } else if (values.manual) {
         filters.transmission = "manual";
       }
 
-      if (
-        (values.alcove && (values.fully || values.van)) ||
-        (values.fully && values.van)
-      ) {
-        filters.form = null;
-      } else if (values.alcove) {
-        filters.form = "alcove";
-      } else if (values.fully) {
-        filters.form = "fullyIntegrated";
-      } else if (values.van) {
-        filters.form = "panelTruck";
+      // Vehicle type filter
+      if (values.vehicleType) {
+        filters.form = values.vehicleType;
       }
 
-      if (values.name.trim()) filters.name = values.name;
+      // Equipment filters
       if (values.AC) filters.AC = true;
       if (values.kitchen) filters.kitchen = true;
       if (values.bathroom) filters.bathroom = true;
       if (values.TV) filters.TV = true;
 
-      dispatch(setFilters(filters)); // put the filter value in steat
+      dispatch(setFilters(filters)); // put the filter value in state
       handleFilter(filters);
-      //   formik.resetForm();
     },
   });
+
+  const handleReset = () => {
+    formik.resetForm();
+    dispatch(setFilters({})); // reset to an empty object
+    handleFilter({}); // also reset through handlefilter
+  };
+
+  const hasActiveFilters = () => {
+    const values = formik.values;
+    return (
+      values.location !== initialValues.location ||
+      values.name !== initialValues.name ||
+      values.vehicleType !== initialValues.vehicleType ||
+      values.automatic !== initialValues.automatic ||
+      values.manual !== initialValues.manual ||
+      values.AC !== initialValues.AC ||
+      values.kitchen !== initialValues.kitchen ||
+      values.bathroom !== initialValues.bathroom ||
+      values.TV !== initialValues.TV
+    );
+  };
 
   //JSX
   return (
@@ -160,7 +182,7 @@ const FilterPanel = ({ handleFilter }) => {
           />
           <label htmlFor="bathroom">
             <Bathroom_icon className={s.bathroom_icon} />
-            TV
+            Bathroom
           </label>
         </div>
 
@@ -168,10 +190,11 @@ const FilterPanel = ({ handleFilter }) => {
 
         <div className={s.wrap_vehicle_type}>
           <input
-            type="checkbox"
+            type="radio"
             id="van"
-            name="van"
-            checked={formik.values.van}
+            name="vehicleType"
+            value="panelTruck"
+            checked={formik.values.vehicleType === "panelTruck"}
             onChange={formik.handleChange}
           />
           <label htmlFor="van">
@@ -180,10 +203,11 @@ const FilterPanel = ({ handleFilter }) => {
           </label>
 
           <input
-            type="checkbox"
+            type="radio"
             id="alcove"
-            name="alcove"
-            checked={formik.values.alcove}
+            name="vehicleType"
+            value="alcove"
+            checked={formik.values.vehicleType === "alcove"}
             onChange={formik.handleChange}
           />
           <label htmlFor="alcove">
@@ -192,10 +216,11 @@ const FilterPanel = ({ handleFilter }) => {
           </label>
 
           <input
-            type="checkbox"
+            type="radio"
             id="fully"
-            name="fully"
-            checked={formik.values.fully}
+            name="vehicleType"
+            value="fullyIntegrated"
+            checked={formik.values.vehicleType === "fullyIntegrated"}
             onChange={formik.handleChange}
           />
           <label htmlFor="fully">
@@ -204,9 +229,21 @@ const FilterPanel = ({ handleFilter }) => {
           </label>
         </div>
 
-        <button className={s.search_with_filter} type="submit">
-          Search
-        </button>
+        <div className={s.button_wrap}>
+          <button className={s.search_with_filter} type="submit">
+            Search
+          </button>
+
+          {hasActiveFilters() && (
+            <button
+              className={s.reset_filter}
+              type="button"
+              onClick={handleReset}
+            >
+              Reset Filters
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );
