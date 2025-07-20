@@ -42,6 +42,14 @@
   height: 16px;
 }
 
+.price {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  color: var(--main);
+}
+
 //image list
 .image_list {
   display: flex;
@@ -75,6 +83,9 @@
 }
 
 //extra_section
+.extra_section {
+  margin-bottom: 80px;
+}
 
 .more_info {
   margin-bottom: 44px;
@@ -110,6 +121,11 @@
 .extra_blocks {
   display: flex;
   gap: 40px;
+}
+
+.features_reviews_block {
+  width: 631px;
+  height: 588px;
 }
 
 .form_block {

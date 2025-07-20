@@ -67,7 +67,7 @@ const Features = () => {
               )}
             >
               <RefrigeratorIcon />
-              Refrigerator
+              fridge
             </span>
           }
           bathroom={
@@ -75,7 +75,7 @@ const Features = () => {
               className={clsx(s.bathroom, bathroom === false && s.disabled)}
             >
               <BathroomIcon />
-              Refrigerator
+              Bathroom
             </span>
           }
         />

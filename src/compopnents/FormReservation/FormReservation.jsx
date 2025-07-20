@@ -31,6 +31,7 @@ const FormReservation = () => {
     actions.resetForm();
   };
 
+  //JSX
   return (
     <Formik
       initialValues={{ name: "", email: "", date: "", comment: "" }}

@@ -1,5 +1,3 @@
-import s from "./CamperDetailsPage.module.scss";
-
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCamperById } from "../../redux/camperDetails/operation";
@@ -11,6 +9,8 @@ import StarIcon from "../../assets/catalogSvg/star.svg?react";
 import MapIcon from "../../assets/catalogSvg/map.svg?react";
 import clsx from "clsx";
 import FormReservation from "../../compopnents/FormReservation/FormReservation";
+
+import s from "./CamperDetailsPage.module.scss";
 
 const CamperDetailsPage = () => {
   const { id } = useParams();
@@ -97,7 +97,7 @@ const CamperDetailsPage = () => {
           </div>
 
           <div className={s.extra_blocks}>
-            <div className={s.outlet_block}>
+            <div className={s.features_reviews_block}>
               <Outlet context={{ camper }} />
             </div>
 
