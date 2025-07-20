@@ -1,0 +1,62 @@
+.outlet_block {
+  border-radius: 10px;
+  padding: 44px 80px;
+  width: 631px;
+  height: 588px;
+  background: var(--inputs);
+}
+
+.features_box {
+  margin-bottom: 60px;
+}
+
+.radio svg,
+.microwave svg,
+.refrigerator svg,
+.bathroom svg {
+  width: 20px;
+  height: 20px;
+}
+
+.disabled {
+  color: #6c717b;
+  text-decoration: line-through;
+  text-decoration-color: #e44848;
+  text-decoration-thickness: 2px;
+  opacity: 0.7;
+}
+
+//
+//
+//vehicle_detail
+.vehicle_detail {
+  border-bottom: solid 2px #dadde1;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--main);
+}
+
+.detail_list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  & p {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--main);
+  }
+
+  & li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

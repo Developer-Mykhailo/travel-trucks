@@ -98,7 +98,7 @@ const CamperDetailsPage = () => {
 
           <div className={s.extra_blocks}>
             <div className={s.outlet_block}>
-              <Outlet />
+              <Outlet context={{ camper }} />
             </div>
 
             <div className={s.form_block}>

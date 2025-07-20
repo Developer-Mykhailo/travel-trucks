@@ -4,12 +4,9 @@ import { Link } from "react-router-dom";
 import HeartIcon from "../../assets/catalogSvg/heart.svg?react";
 import StarIcon from "../../assets/catalogSvg/star.svg?react";
 import MapIcon from "../../assets/catalogSvg/map.svg?react";
-import TransmissionIcon from "../../assets/catalogSvg/automatic.svg?react";
-import FuelIcon from "../../assets/catalogSvg/fuel.svg?react";
-import KitchenIcon from "../../assets/catalogSvg/kitchen.svg?react";
-import AirIcon from "../../assets/catalogSvg/air_icon.svg?react";
-import clsx from "clsx";
+
 import s from "./Camper_Card.module.scss";
+import CamperEquipment from "../CamperEquipment/CamperEquipment";
 
 const CamperCard = ({ camper }) => {
   const {
@@ -89,28 +86,12 @@ const CamperCard = ({ camper }) => {
           delayHide={350}
         />
 
-        <div className={s.camper_equipment}>
-          <span className={s.automatic}>
-            <TransmissionIcon />
-            {transmission.charAt(0).toUpperCase() +
-              transmission.slice(1).toLowerCase()}
-          </span>
-
-          <span className={s.petrol}>
-            <FuelIcon />
-            {engine.charAt(0).toUpperCase() + engine.slice(1).toLowerCase()}
-          </span>
-
-          <span className={clsx(s.kitchen, !kitchen && s.disabled)}>
-            <KitchenIcon />
-            Kitchen
-          </span>
-
-          <span className={clsx(s.air_con, !AC && s.disabled)}>
-            <AirIcon />
-            AC
-          </span>
-        </div>
+        <CamperEquipment
+          transmission={transmission}
+          engine={engine}
+          kitchen={kitchen}
+          AC={AC}
+        />
 
         <Link className={s.link_show_more} to={`/catalog/${id}`}>
           Show more
