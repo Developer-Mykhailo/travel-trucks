@@ -13,7 +13,7 @@ import Container from "../../compopnents/Container/Container";
 import FilterPanel from "../../compopnents/FilterPanel/FilterPanel";
 import s from "./Catalog.module.scss";
 
-const Catalog = () => {
+const CatalogPage = () => {
   const dispatch = useDispatch();
   const campers = useSelector(selectCampers);
 
@@ -84,4 +84,4 @@ const Catalog = () => {
   );
 };
 
-export default Catalog;
+export default CatalogPage;

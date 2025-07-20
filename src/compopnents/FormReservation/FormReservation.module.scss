@@ -1,0 +1,61 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.field_wrap:not(:nth-child(4)) {
+  margin-bottom: 14px;
+}
+
+.field_wrap {
+  position: relative;
+
+  & .input {
+    border-radius: 12px;
+    padding: 18px;
+    width: 527px;
+    height: 60px;
+    background: var(--inputs);
+
+    outline: none;
+    border: none;
+  }
+
+  & span {
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+    padding-left: 18px;
+    color: red;
+    font-size: 12px;
+  }
+}
+
+.input[name="comment"] {
+  min-height: 118px;
+  resize: none;
+  display: block;
+}
+
+.form button[type="submit"] {
+  margin: 0 auto;
+  background: var(--button);
+  margin-top: 24px;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: var(--white);
+
+  border-radius: 200px;
+  padding: 16px 60px;
+  width: 166px;
+  height: 56px;
+  transition: background-color 250ms ease-in-out;
+  &:hover,
+  &:focus {
+    background-color: var(--button-hover);
+  }
+}

@@ -1,5 +1,6 @@
 import { Tooltip } from "react-tooltip";
 import { Link } from "react-router-dom";
+
 import HeartIcon from "../../assets/catalogSvg/heart.svg?react";
 import StarIcon from "../../assets/catalogSvg/star.svg?react";
 import MapIcon from "../../assets/catalogSvg/map.svg?react";
@@ -18,19 +19,13 @@ const CamperCard = ({ camper }) => {
     gallery,
     price,
     location,
+    rating,
     reviews,
     transmission,
     engine,
     kitchen,
     AC,
   } = camper;
-
-  // total rating
-  const rating = reviews.reduce((acc, reviewer) => {
-    return acc + reviewer.reviewer_rating;
-  }, 0);
-  //average value of rating
-  const averageValue = rating / reviews.length;
 
   //for too long name
   const isNameTruncated = name.length > 27;
@@ -68,7 +63,7 @@ const CamperCard = ({ camper }) => {
         <div className={s.reviews_location}>
           <p className={s.reviews}>
             <StarIcon />
-            {averageValue}({reviews.length} Reviews)
+            {rating}({reviews.length} Reviews)
           </p>
 
           <p className={s.location}>
