@@ -151,3 +151,7 @@
     margin-bottom: 24px;
   }
 }
+
+:global(.yarl__container) {
+  background-color: #f7f7f7eb !important; // світлий фон з прозорістю
+}

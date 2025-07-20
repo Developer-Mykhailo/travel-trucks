@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCamperById } from "../../redux/camperDetails/operation";
 import { NavLink, Outlet, useParams } from "react-router-dom";
@@ -10,9 +10,15 @@ import MapIcon from "../../assets/catalogSvg/map.svg?react";
 import clsx from "clsx";
 import FormReservation from "../../compopnents/FormReservation/FormReservation";
 
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+
 import s from "./CamperDetailsPage.module.scss";
 
 const CamperDetailsPage = () => {
+  const [open, setOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
   const { id } = useParams();
   const dispatch = useDispatch();
   const camper = useSelector(selectCamperDetails);
@@ -25,7 +31,7 @@ const CamperDetailsPage = () => {
     return <div>Loading...</div>; // wait for loading
   }
 
-  const { name, price, reviews, rating, location, gallery } = camper;
+  const { name, price, reviews, rating, location, gallery, form } = camper;
 
   //JSX
   return (
@@ -46,15 +52,30 @@ const CamperDetailsPage = () => {
             </div>
             <span className={s.price}>&#x20AC;{price.toFixed(2)}</span>
           </div>
+
           <ul className={s.image_list}>
-            {gallery.map((photo) => (
+            {gallery.map((photo, index) => (
               <li key={photo.thumb}>
-                <div className={s.img_box}>
-                  <img src={photo.thumb} alt="" />
+                <div
+                  className={s.img_box}
+                  onClick={() => {
+                    setOpen(true);
+                    setPhotoIndex(index);
+                  }}
+                >
+                  <img src={photo.thumb} alt={form} />
                 </div>
               </li>
             ))}
           </ul>
+
+          <Lightbox
+            open={open}
+            close={() => setOpen(false)}
+            slides={gallery.map((photo) => ({ src: photo.original }))}
+            index={photoIndex}
+          />
+
           <p className={s.descr}>
             Embrace simplicity and freedom with the Mavericks panel truck, an
             ideal choice for solo travelers or couples seeking a compact and

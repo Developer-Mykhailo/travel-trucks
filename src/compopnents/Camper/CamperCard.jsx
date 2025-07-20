@@ -5,8 +5,9 @@ import HeartIcon from "../../assets/catalogSvg/heart.svg?react";
 import StarIcon from "../../assets/catalogSvg/star.svg?react";
 import MapIcon from "../../assets/catalogSvg/map.svg?react";
 
-import s from "./Camper_Card.module.scss";
 import CamperEquipment from "../CamperEquipment/CamperEquipment";
+import { ImageModal } from "../../ImageModal/ImageModal";
+import s from "./Camper_Card.module.scss";
 
 const CamperCard = ({ camper }) => {
   const {
@@ -29,9 +30,11 @@ const CamperCard = ({ camper }) => {
 
   return (
     <div className={s.camper_wrap}>
-      <div className={s.image_box}>
-        <img src={gallery[0]?.thumb} alt={description} />
-      </div>
+      <ImageModal
+        thumb={gallery[0]?.thumb}
+        original={gallery[0]?.original}
+        alt={description}
+      />
 
       <div className={s.content_box}>
         <div className={s.name_price}>
