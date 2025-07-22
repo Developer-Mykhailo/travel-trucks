@@ -14,6 +14,7 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
 import s from "./CamperDetailsPage.module.scss";
+import Loader from "../../compopnents/Loader/Loader";
 
 const CamperDetailsPage = () => {
   const [open, setOpen] = useState(false);
@@ -28,7 +29,7 @@ const CamperDetailsPage = () => {
   }, [dispatch, id]);
 
   if (!camper) {
-    return <div>Loading...</div>; // wait for loading
+    return <Loader />; // wait for loading
   }
 
   const { name, price, reviews, rating, location, gallery, form } = camper;
