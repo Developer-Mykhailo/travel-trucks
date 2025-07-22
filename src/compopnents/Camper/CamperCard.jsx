@@ -34,10 +34,9 @@ const CamperCard = ({ camper }) => {
   const [isFavorit, setIsFavorit] = useState(false);
 
   useEffect(() => {
-    const storedFavorites = JSON.parse(
-      localStorage.getItem("favoriteCampers") || []
-    );
-    setIsFavorit(storedFavorites.includes(id));
+    const storedFavorites = localStorage.getItem("favoriteCampers");
+    const favorites = storedFavorites ? JSON.parse(storedFavorites) : [];
+    setIsFavorit(favorites.includes(id));
   }, [id]);
 
   const toggleFavorite = () => {
