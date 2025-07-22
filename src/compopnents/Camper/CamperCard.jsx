@@ -8,6 +8,8 @@ import MapIcon from "../../assets/catalogSvg/map.svg?react";
 import CamperEquipment from "../CamperEquipment/CamperEquipment";
 import { ImageModal } from "../../ImageModal/ImageModal";
 import s from "./Camper_Card.module.scss";
+import { useEffect, useState } from "react";
+import clsx from "clsx";
 
 const CamperCard = ({ camper }) => {
   const {
@@ -28,11 +30,35 @@ const CamperCard = ({ camper }) => {
   //for too long name
   const isNameTruncated = name.length > 27;
 
+  //Favorit campers
+  const [isFavorit, setIsFavorit] = useState(false);
+
+  useEffect(() => {
+    const storedFavorites = JSON.parse(
+      localStorage.getItem("favoriteCampers") || []
+    );
+    setIsFavorit(storedFavorites.includes(id));
+  }, [id]);
+
+  const toggleFavorite = () => {
+    const stored = JSON.parse(localStorage.getItem("favoriteCampers")) || [];
+
+    let updated;
+    if (stored.includes(id)) {
+      updated = stored.filter((favId) => favId !== id); // Remove from your favorite
+    } else {
+      updated = [...stored, id]; // Add to your loved ones
+    }
+
+    setIsFavorit(!stored.includes(id)); // Set a new condition
+    localStorage.setItem("favoriteCampers", JSON.stringify(updated));
+  };
+
   return (
     <div className={s.camper_wrap}>
       <ImageModal
-        thumb={gallery[0]?.thumb}
-        original={gallery[0]?.original}
+        thumb={gallery?.[0]?.thumb}
+        original={gallery?.[0]?.original}
         alt={description}
       />
 
@@ -56,7 +82,10 @@ const CamperCard = ({ camper }) => {
 
           <span className={s.price}>
             &#x20AC;{price.toFixed(2)}
-            <HeartIcon className={s.heart_icon} />
+            <HeartIcon
+              className={clsx(s.heart_icon, isFavorit && s.favorit_camper)}
+              onClick={toggleFavorite}
+            />
           </span>
         </div>
 
