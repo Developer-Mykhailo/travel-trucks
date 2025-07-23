@@ -89,11 +89,18 @@
     transition: border 250ms ease;
   }
 
-  & input:checked + label,
   & label:hover {
     cursor: pointer;
     border: 1px solid var(--button);
   }
+}
+
+input [type="radio"] + label {
+  border: 1px solid var(--button);
+}
+
+input:checked + label {
+  border: 1px solid var(--button);
 }
 
 //icons

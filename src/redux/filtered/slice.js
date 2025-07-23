@@ -17,10 +17,6 @@ const filteredSlice = createSlice({
     setFilters(state, action) {
       state.filteredCampers = []; // clean old values
       state.filters = action.payload;
-    },
-
-    resetFiltered(state) {
-      state.filters = null;
       state.total = 0;
     },
   },

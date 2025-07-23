@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFilters } from "../../redux/filtered/slice";
+import { selectFilters } from "../../redux/filtered/selectors";
 
 import Map_icon from "../../assets/catalogSvg/map.svg?react";
 import Air_icon from "../../assets/catalogSvg/air_icon.svg?react";
@@ -14,10 +15,10 @@ import Fully_icon from "../../assets/catalogSvg/fully.svg?react";
 import Van_icon from "../../assets/catalogSvg/van.svg?react";
 
 import s from "./FilterPanel.module.scss";
+import { useSearchParams } from "react-router-dom";
 
 const initialValues = {
   location: "",
-  name: "",
   automatic: false,
   manual: false,
   AC: false,
@@ -29,37 +30,30 @@ const initialValues = {
 
 const FilterPanel = ({ handleFilter }) => {
   const dispatch = useDispatch();
+  const savedFilters = useSelector(selectFilters);
+
+  const [_, setSearchParams] = useSearchParams();
 
   const formik = useFormik({
-    initialValues,
+    initialValues: { ...initialValues, ...savedFilters },
     onSubmit: (values) => {
       const filters = {};
-
       // Location filter
       if (values.location.trim()) {
         filters.location = values.location.trim();
       }
-
-      // Name filter
-      if (values.name.trim()) {
-        filters.name = values.name.trim();
-      }
-
       // Transmission filter
       if (values.automatic && values.manual) {
         // If both are selected, do not filter on transmission
-        filters.transmission = undefined;
       } else if (values.automatic) {
         filters.transmission = "automatic";
       } else if (values.manual) {
         filters.transmission = "manual";
       }
-
       // Vehicle type filter
       if (values.vehicleType) {
         filters.form = values.vehicleType;
       }
-
       // Equipment filters
       if (values.AC) filters.AC = true;
       if (values.kitchen) filters.kitchen = true;
@@ -69,27 +63,22 @@ const FilterPanel = ({ handleFilter }) => {
       dispatch(setFilters(filters)); // put the filter value in state
       handleFilter(filters);
     },
+    enableReinitialize: true, // pick up new Initialvalues
   });
 
   const handleReset = () => {
     formik.resetForm();
     dispatch(setFilters({})); // reset to an empty object
-    handleFilter({}); // also reset through handlefilter
+    setSearchParams({});
   };
 
   const hasActiveFilters = () => {
-    const values = formik.values;
-    return (
-      values.location !== initialValues.location ||
-      values.name !== initialValues.name ||
-      values.vehicleType !== initialValues.vehicleType ||
-      values.automatic !== initialValues.automatic ||
-      values.manual !== initialValues.manual ||
-      values.AC !== initialValues.AC ||
-      values.kitchen !== initialValues.kitchen ||
-      values.bathroom !== initialValues.bathroom ||
-      values.TV !== initialValues.TV
-    );
+    for (const key in initialValues) {
+      if (formik.values[key] !== initialValues[key]) {
+        return true;
+      }
+    }
+    return false;
   };
 
   //JSX
