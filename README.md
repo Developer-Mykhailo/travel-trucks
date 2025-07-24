@@ -1,7 +1,5 @@
 # 🚐 **Embark on a Journey with Travel Trucks**
 
-![travel-trucks logo]
-
 > A Minimalist Start for Your Next Web Application
 
 ---
