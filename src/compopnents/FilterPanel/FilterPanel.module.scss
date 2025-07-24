@@ -95,11 +95,8 @@
   }
 }
 
-input [type="radio"] + label {
-  border: 1px solid var(--button);
-}
-
-input:checked + label {
+input:checked + label,
+.active {
   border: 1px solid var(--button);
 }
 
@@ -125,8 +122,8 @@ input:checked + label {
   gap: 28px;
 }
 
-.search_with_filter,
-.reset_filter {
+.btn_search_with_filter,
+.btn_reset_filter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -148,7 +145,7 @@ input:checked + label {
   }
 }
 
-.reset_filter {
+.btn_reset_filter {
   background-color: #666;
   &:hover,
   &:focus {

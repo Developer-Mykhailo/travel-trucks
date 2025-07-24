@@ -39,8 +39,8 @@ const CatalogPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page") || 1);
 
+  const filtersFromParams = parseFiltersFromParams(searchParams);
   useEffect(() => {
-    const filtersFromParams = parseFiltersFromParams(searchParams);
     const hasFilters = Object.keys(filtersFromParams).length > 0;
 
     if (hasFilters) {

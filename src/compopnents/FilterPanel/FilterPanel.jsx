@@ -16,6 +16,7 @@ import Van_icon from "../../assets/catalogSvg/van.svg?react";
 
 import s from "./FilterPanel.module.scss";
 import { useSearchParams } from "react-router-dom";
+import clsx from "clsx";
 
 const initialValues = {
   location: "",
@@ -186,7 +187,12 @@ const FilterPanel = ({ handleFilter }) => {
             checked={formik.values.vehicleType === "panelTruck"}
             onChange={formik.handleChange}
           />
-          <label htmlFor="van">
+          <label
+            htmlFor="van"
+            className={clsx(
+              formik.values.vehicleType === "panelTruck" && s.active
+            )}
+          >
             <Van_icon className={s.van_icon} />
             Van
           </label>
@@ -199,7 +205,10 @@ const FilterPanel = ({ handleFilter }) => {
             checked={formik.values.vehicleType === "alcove"}
             onChange={formik.handleChange}
           />
-          <label htmlFor="alcove">
+          <label
+            htmlFor="alcove"
+            className={clsx(formik.values.vehicleType === "alcove" && s.active)}
+          >
             <Alcove_icon className={s.alcove_icon} />
             Alcove
           </label>
@@ -212,20 +221,25 @@ const FilterPanel = ({ handleFilter }) => {
             checked={formik.values.vehicleType === "fullyIntegrated"}
             onChange={formik.handleChange}
           />
-          <label htmlFor="fully">
+          <label
+            htmlFor="fully"
+            className={clsx(
+              formik.values.vehicleType === "fullyIntegrated" && s.active
+            )}
+          >
             <Fully_icon className={s.fully_icon} />
             Fully Integrated
           </label>
         </div>
 
         <div className={s.button_wrap}>
-          <button className={s.search_with_filter} type="submit">
+          <button className={s.btn_search_with_filter} type="submit">
             Search
           </button>
 
           {hasActiveFilters() && (
             <button
-              className={s.reset_filter}
+              className={s.btn_reset_filter}
               type="button"
               onClick={handleReset}
             >
