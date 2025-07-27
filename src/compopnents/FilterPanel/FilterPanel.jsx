@@ -20,14 +20,12 @@ import { useSearchParams } from "react-router-dom";
 
 const initialValues = {
   location: "",
-  // automatic: false,
-  // manual: false,
   transmission: "",
   AC: false,
   kitchen: false,
   bathroom: false,
   TV: false,
-  vehicleType: "",
+  form: "",
 };
 
 const FilterPanel = ({ handleFilter, onFiltersFromParams }) => {
@@ -48,7 +46,7 @@ const FilterPanel = ({ handleFilter, onFiltersFromParams }) => {
       // Transmission filter
       if (values.transmission) filters.transmission = values.transmission;
       // Vehicle type filter
-      if (values.vehicleType) filters.form = values.vehicleType;
+      if (values.form) filters.form = values.form;
       // Equipment filters
       if (values.AC) filters.AC = true;
       if (values.kitchen) filters.kitchen = true;
@@ -184,10 +182,10 @@ const FilterPanel = ({ handleFilter, onFiltersFromParams }) => {
           <input
             type="radio"
             id="van"
-            name="vehicleType"
+            name="form"
             value="panelTruck"
             checked={
-              formik.values.vehicleType === "panelTruck" ||
+              formik.values.form === "panelTruck" ||
               filtersFromParams.form === "panelTruck"
             }
             onChange={formik.handleChange}
@@ -200,10 +198,10 @@ const FilterPanel = ({ handleFilter, onFiltersFromParams }) => {
           <input
             type="radio"
             id="alcove"
-            name="vehicleType"
+            name="form"
             value="alcove"
             checked={
-              formik.values.vehicleType === "alcove" ||
+              formik.values.form === "alcove" ||
               filtersFromParams.form === "alcove"
             }
             onChange={formik.handleChange}
@@ -216,10 +214,10 @@ const FilterPanel = ({ handleFilter, onFiltersFromParams }) => {
           <input
             type="radio"
             id="fully"
-            name="vehicleType"
+            name="form"
             value="fullyIntegrated"
             checked={
-              formik.values.vehicleType === "fullyIntegrated" ||
+              formik.values.form === "fullyIntegrated" ||
               filtersFromParams.form === "fullyIntegrated"
             }
             onChange={formik.handleChange}
