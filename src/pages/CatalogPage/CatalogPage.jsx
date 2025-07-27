@@ -6,7 +6,6 @@ import { fetchFilteredCampers } from "../../redux/filtered/operations";
 import {
   selectFilteredCampers,
   selectFilteredTotal,
-  selectFilters,
 } from "../../redux/filtered/selectors";
 import CamperCard from "../../compopnents/Camper/CamperCard";
 import Container from "../../compopnents/Container/Container";
@@ -32,14 +31,16 @@ const CatalogPage = () => {
   const dispatch = useDispatch();
   const campers = useSelector(selectCampers);
   const filteredCampers = useSelector(selectFilteredCampers);
-  const filters = useSelector(selectFilters);
+
   const total = useSelector(selectTotal);
   const filteredTotal = useSelector(selectFilteredTotal);
 
   const [searchParams, setSearchParams] = useSearchParams();
+
   const page = Number(searchParams.get("page") || 1);
 
   const filtersFromParams = parseFiltersFromParams(searchParams);
+
   useEffect(() => {
     const hasFilters = Object.keys(filtersFromParams).length > 0;
 
@@ -48,20 +49,24 @@ const CatalogPage = () => {
     } else {
       dispatch(fetchCampers(page));
     }
+    // eslint-disable-next-line
   }, [dispatch, searchParams, page]);
 
   const handleLoadMore = () => {
     const nextPage = page + 1;
     setSearchParams((prev) => {
       const newParams = new URLSearchParams(prev);
+
       newParams.set("page", nextPage.toString());
       return newParams;
     });
 
-    if (!filters || Object.keys(filters).length === 0) {
+    if (Object.keys(filtersFromParams).length === 0) {
       dispatch(fetchCampers(nextPage));
     } else {
-      dispatch(fetchFilteredCampers({ filters, page: nextPage }));
+      dispatch(
+        fetchFilteredCampers({ filters: filtersFromParams, page: nextPage })
+      );
     }
   };
 
@@ -87,7 +92,10 @@ const CatalogPage = () => {
     <section className={s.catalog}>
       <Container>
         <div className={s.catalog_container}>
-          <FilterPanel handleFilter={handleFilter} />
+          <FilterPanel
+            handleFilter={handleFilter}
+            onFiltersFromParams={parseFiltersFromParams}
+          />
           <ul className={s.camper_list}>
             {(filteredCampers.length > 0 ? filteredCampers : campers).map(
               (camper) => (

@@ -95,8 +95,7 @@
   }
 }
 
-input:checked + label,
-.active {
+input:checked + label {
   border: 1px solid var(--button);
 }
 
