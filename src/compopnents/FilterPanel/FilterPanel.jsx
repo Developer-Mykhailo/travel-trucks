@@ -13,10 +13,10 @@ import Bathroom_icon from "../../assets/catalogSvg/bathroom.svg?react";
 import Alcove_icon from "../../assets/catalogSvg/alcove.svg?react";
 import Fully_icon from "../../assets/catalogSvg/fully.svg?react";
 import Van_icon from "../../assets/catalogSvg/van.svg?react";
+import { parseFiltersFromParams } from "../../utils/parseFilters";
 
 import s from "./FilterPanel.module.scss";
 import { useSearchParams } from "react-router-dom";
-// import clsx from "clsx";
 
 const initialValues = {
   location: "",
@@ -28,12 +28,12 @@ const initialValues = {
   form: "",
 };
 
-const FilterPanel = ({ handleFilter, onFiltersFromParams }) => {
+const FilterPanel = ({ handleFilter }) => {
   const dispatch = useDispatch();
   const savedFilters = useSelector(selectFilters);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const filtersFromParams = onFiltersFromParams(searchParams);
+  const filtersFromParams = parseFiltersFromParams(searchParams);
 
   const formik = useFormik({
     initialValues: { ...initialValues, ...savedFilters },

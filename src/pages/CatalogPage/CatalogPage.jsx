@@ -13,19 +13,7 @@ import FilterPanel from "../../compopnents/FilterPanel/FilterPanel";
 import s from "./Catalog.module.scss";
 import toast from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
-
-const parseFiltersFromParams = (params) => {
-  const filters = {};
-  for (const [key, value] of params.entries()) {
-    if (key === "page") continue;
-    if (value === "true") {
-      filters[key] = true;
-    } else {
-      filters[key] = value;
-    }
-  }
-  return filters;
-};
+import { parseFiltersFromParams } from "../../utils/parseFilters";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
@@ -36,10 +24,9 @@ const CatalogPage = () => {
   const filteredTotal = useSelector(selectFilteredTotal);
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const filtersFromParams = parseFiltersFromParams(searchParams);
 
   const page = Number(searchParams.get("page") || 1);
-
-  const filtersFromParams = parseFiltersFromParams(searchParams);
 
   useEffect(() => {
     const hasFilters = Object.keys(filtersFromParams).length > 0;
@@ -60,14 +47,6 @@ const CatalogPage = () => {
       newParams.set("page", nextPage.toString());
       return newParams;
     });
-
-    if (Object.keys(filtersFromParams).length === 0) {
-      dispatch(fetchCampers(nextPage));
-    } else {
-      dispatch(
-        fetchFilteredCampers({ filters: filtersFromParams, page: nextPage })
-      );
-    }
   };
 
   const handleFilter = async (filters) => {
@@ -82,7 +61,6 @@ const CatalogPage = () => {
       });
       params.set("page", "1");
       setSearchParams(params);
-      await dispatch(fetchFilteredCampers({ filters, page: 1 })).unwrap();
     } catch {
       toast.error("Nothing found! Change filters and try again");
     }
@@ -94,7 +72,7 @@ const CatalogPage = () => {
         <div className={s.catalog_container}>
           <FilterPanel
             handleFilter={handleFilter}
-            onFiltersFromParams={parseFiltersFromParams}
+            // onFiltersFromParams={parseFiltersFromParams}
           />
           <ul className={s.camper_list}>
             {(filteredCampers.length > 0 ? filteredCampers : campers).map(
